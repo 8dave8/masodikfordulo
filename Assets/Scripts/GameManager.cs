@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
         {
             Buttons.SetActive(true);
             Touch touch = Input.GetTouch(0);
-            Vector3Int currentCell = highlightMap.WorldToCell(touch.position);
+            Vector3Int currentCell = highlightMap.WorldToCell(touch.rawPosition);
             //currentCell.x += 1;  
+            
             highlightMap.SetTile(currentCell,Tiles[Lerakando]);
+            highlightMap.RefreshAllTiles();
             //setactive valaszto menu
             Debug.Log(currentCell+"  "+Lerakando);
         }
