@@ -11,9 +11,15 @@ public class GameManager : MonoBehaviour
     private Vector3Int previous;
     private int Lerakando;
     private Vector3Int tmp;
+    private int[] buildings;
     // Start is called before the first frame update
     void Start()
     {
+        buildings[0] = 0;
+        buildings[0] = 0;
+        buildings[0] = 0;
+        buildings[0] = 0;
+        Lerakando = 4;
         tmp = new Vector3Int(0,0,0);
         Buttons.SetActive(false);
     }
@@ -31,18 +37,19 @@ public class GameManager : MonoBehaviour
             highlightMap.SetTile(currentCell,Tiles[Lerakando]);
             */
             //setactive valaszto menu
-            
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-            Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
-            Vector3Int position = highlightMap.WorldToCell(worldPoint);
-            Debug.Log(position);
-            if(position.x < -2) position = tmp;// nemenged belenyulni a kiirasba
-            else tmp = position; 
-            TileBase tile = highlightMap.GetTile(position);
-            Tiles[Lerakando].sprite = Sprites[Lerakando];
-            highlightMap.SetTile(position, Tiles[Lerakando]);
-            highlightMap.RefreshTile(position);
-            Debug.Log(position+" "+ Tiles[Lerakando]);
+            if(Buttons.activeSelf && Lerakando != 4)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
+                Vector3Int position = highlightMap.WorldToCell(worldPoint);
+                if(position.x < -2) position = tmp; // nemenged belenyulni a kiirasba
+                else tmp = position;
+                TileBase tile = highlightMap.GetTile(position);
+                Tiles[Lerakando].sprite = Sprites[Lerakando];
+                highlightMap.SetTile(position, Tiles[Lerakando]);
+                Debug.Log(position);
+                
+            }
         }
     }
     public void lerakando(int id)
