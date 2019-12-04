@@ -6,11 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Utils : MonoBehaviour
 {
-    [SerializeField]
-    GameObject menu;
-    [SerializeField]
-    GameObject simulation;
-
+    [SerializeField] GameObject menu;
+    [SerializeField] GameObject simulation;
+    [SerializeField] GameObject tutorial;
     public void Begin()
     {
         menu.SetActive(false);
@@ -21,8 +19,12 @@ public class Utils : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Restart(string scene)
+    public void Restart()
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene("SampleScene",LoadSceneMode.Single);
+    }
+    public void Tutorial()
+    {
+        tutorial.SetActive(true);
     }
 }

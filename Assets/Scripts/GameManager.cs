@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject simulation;
     //runtime
     public float vizSzint;
     public float KWH;
@@ -50,8 +51,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Epites();
-        runTime();
+        if (simulation.activeSelf)
+        {
+            Epites();
+            runTime();
+        }
     }
 
     private void runTime()
@@ -111,9 +115,5 @@ public class GameManager : MonoBehaviour
     public void setSelectionToActive()
     {
         selectionIsActive = true;
-    }
-    public void Reload()
-    {
-        SceneManager.LoadScene("Samplescene");
     }
 }
