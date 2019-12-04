@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private Vector3Int previous;
     private int Lerakando;
     private Vector3Int tmp;
+    private bool selectionIsActive = false;
     private int[] buildings;
     // Start is called before the first frame update
     void Start()
@@ -29,27 +30,18 @@ public class GameManager : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Buttons.SetActive(true);
             Touch touch = Input.GetTouch(0);
-            /* 
-            Vector3Int currentCell = highlightMap.WorldToCell(touch.rawPosition);
-            //currentCell.x += 1;  
-            highlightMap.SetTile(currentCell,Tiles[Lerakando]);
-            */
-            //setactive valaszto menu
-            if(Buttons.activeSelf && Lerakando != 4)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
-                Vector3Int position = highlightMap.WorldToCell(worldPoint);
-                if(position.x < -2) position = tmp; // nemenged belenyulni a kiirasba
-                else tmp = position;
-                TileBase tile = highlightMap.GetTile(position);
-                Tiles[Lerakando].sprite = Sprites[Lerakando];
-                highlightMap.SetTile(position, Tiles[Lerakando]);
-                Debug.Log(position);
-                
-            }
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
+            Vector3Int position = highlightMap.WorldToCell(worldPoint);
+            if(position.x < -2) position = tmp; // nemenged belenyulni a kiirasba
+            else tmp = position;
+            Debug.Log(position);
+        }
+        Buttons.SetActive(true);
+        if(Buttons.activeSelf && Lerakando != 4)
+        {            
+            Tiles[Lerakando].sprite = Sprites[Lerakando];            
         }
     }
     public void lerakando(int id)
