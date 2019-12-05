@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject deathScene;
     public Text DeathText;
     private bool alive;
+    private System.Random vizrandomizer;
 
 
     private List<Vector3Int> elozoLerakotEpitmenyekHelyeKoordinatakban; //donmai, kore namae wa meme desu
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vizrandomizer = new System.Random();
         alive = true;
         Lerakando = 4;
         vizSzint = 50;
@@ -62,12 +64,12 @@ public class GameManager : MonoBehaviour
     {
         if (!(vizSzint > 10 && vizSzint < 90))
         {
-            DeathText.text = termeltKWH + " kW";
+            DeathText.text = "Kitermelt áram: " + termeltKWH + " kW";
             deathScene.SetActive(true);
             alive = false;
         }
             vizSzint += vizbeszabalyzo.value * Time.deltaTime;
-            vizSzint -= buildings[0] * Time.deltaTime; 
+            vizSzint -= (buildings[0] + (buildings[3] * 1.215f) - buildings[2] * 0.8765f) * (vizrandomizer.Next(912, 1087) / 1000) * Time.deltaTime; 
             KWH = 0;
             KWH = (buildings[0] * 10);
             KWH += (buildings[0] * 10) * (buildings[1] * 1.5f);
